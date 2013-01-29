@@ -1,0 +1,83 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* li { */
+/*     font-size: 24pt; */
+/*     word-wrap: break-word; */
+/*     /\* max-width is set dynamically from javascript*\/ */
+/* } */
+
+#text-wrap {
+    background: none repeat scroll 0 0 transparent;
+    /* font-family: "times new roman",serif; */
+    font-size: 12pt;
+    /* font-weight: 900; */
+    line-height: 12pt;
+    white-space: normal;
+}
+
+
+#text-wrap {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    width: 100%
+    height: 1px;
+    /* margin-top: -50px; */
+    /* margin-left: -250px; */
+    z-index: 900;
+    /* width: 500px; */
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+#targettext {
+    margin-top: 100px;
+}
+
+#infobox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
+
+
+#xit {
+    margin: -240px 0px 0px 0px;
+    font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+    font-size: 2400px;
+    position: relative;
+    z-index: 990;
+    color: black;
+}
+

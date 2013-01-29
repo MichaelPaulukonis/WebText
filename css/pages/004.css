@@ -1,0 +1,50 @@
+
+#bg {
+		position:fixed;
+		top:-50%;
+		left:-50%;
+		width:200%;
+		height:200%;
+}
+#bg img {
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		margin:auto;
+		min-width:50%;
+		min-height:50%;
+}
+
+
+#titlebox {
+    position: relative;
+    z-index: 2;
+    width: 500px;
+    margin: 100px 20px 20px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    font-family: Andale Mono, monospace;
+    font-size: 15px;
+}
+
+#page-wrap {
+    position: relative;
+    z-index: 2;
+    max-height: 600px;
+    width: 500px;
+    margin: 20px;
+    padding: 20px;
+    background: white;
+}
+
+#targettext {
+    font-family: Andale Mono, monospace;
+    font-size: 8pt;
+    max-height: 550px;
+    /* height: auto !important; */
+    /* height: 550px; */
+    word-wrap: break-word;
+}

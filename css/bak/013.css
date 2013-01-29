@@ -1,0 +1,65 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 15px;
+    background: white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+li {
+    position: absolute;
+    cursor: pointer;
+}
+
+
+#targettext {
+    margin-top: -50px;
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    z-index: 900;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+
+#center {
+    float: left;
+    width: 170px;
+    font-family: Monospace;
+    /* the <pre> tags have a 16px top margin, from somewhere.... */
+    margin-top: 16px;
+}
+
+
+#infobox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
