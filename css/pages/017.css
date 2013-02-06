@@ -1,49 +1,39 @@
 body, html, form {
     font-family: "Segoe UI", "Arial";
     font-size: 12pt;
-    background: black;
+    background: blue;
+    color: yellow;
+    overflow: hidden;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0px;
+#content {
+    /* width: 100%; */
+    height: 100%;
 }
 
-li {
-    position: absolute;
-    cursor: pointer;
-}
-
-
-#targettext {
-    margin-top: -50px;
-    position: absolute;
-    width: 500px;
-    z-index: 900;
-    padding: 20px;
-    background: white;
-    text-align: center;
-}
-
-#left {
+#content p {
+    color: yellow;
+    background: crimson;
+    padding: 5px;
     float: left;
+    margin: 0 5px 10px 0;
 }
 
-#center {
-    float: left;
-    width: 170px;
-    font-family: Monospace;
-    /* the <pre> tags have a 16px top margin, from somewhere.... */
-    margin-top: 16px;
+
+#content span {
+    color: yellow;
+    background: crimson;
+    padding: 5px;
 }
 
-#right {
-    float: left;
+#content > span.active {
+    color: yellow;
 }
 
-.targs {
-    margin: 0 30px 0 30px !important;
+#holding {
+    display: none;
 }
+
 
 #infobox {
     position: fixed;
@@ -58,6 +48,7 @@ li {
     text-align: center;
 }
 
+/* this can scroll off the bottom in small displays.... */
 #debugbox {
     position: fixed;
     top: 75%;
@@ -72,3 +63,4 @@ li {
     opacity: 0.75;
     display: none; /* off by default, only display if requested */
 }
+
