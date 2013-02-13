@@ -12,11 +12,34 @@ $(document).ready(function() {
 //   maximize size
 var page17 = function() {
 
-    var speed = parseInt(SketchLib.GetOption('speed'), 10) || 400;
-    var isPaused = false;
-    var texts = $('#holding span');
-    var current = 0; 
     var content = $('#content');
+    var input;
+
+    var etype = SketchLib.GetOption('engine') || 'markov'; // TODO: make sure is a valid engine
+    var ngram = parseInt(SketchLib.GetOption('ngram'), 10) || 5;
+    var c = SketchLib.GetOption('content') || 'raw';
+
+    var testinput = "as an apple is to a beta, this bridge is over the any hill. who says? she says! so says the soothsayer rapunzel. As Brad the Bard and Ken knew, the can-can can not know how to do it like an apple, like a bridge, like a beast of burden with a heavy load. And so what? The bald bearded bard sings a braided tale of happiness, of woe, of bitter embargoed apples on a barge passing under a bridegroom's bridge by a tepid, vapid moon. His beer is here, and all ale is well, hale, and hearty. This is not my bridge, it is your bridge, your toll bridge, your tool for trolls and travellers. I see you singing, Bradley Bard, I hear you. Your embalmer blames the bridge, his badge is barely adequate for the aqueduct, he ducks his dock responsibilities badly, baldly. Who is the third that walks beside you? How is he known, and how can he see in the dark (if, in fact, he can.) All what? All right, that is okay, he said.";
+    
+    switch(c) {
+        case 'raw':
+        case 1:
+        input = $('#raw').html();
+        break;
+
+        case 'material':
+        case 2:
+        input = $('#material').html();
+        break;
+
+        case 'test':
+        case 3:
+        default:
+        input = testinput;
+        break;
+
+    }
+
     
     var keyed = function() {
 
@@ -24,9 +47,9 @@ var page17 = function() {
         
     };
 
-    var testinput = "as an apple is to a beta, this bridge is over the any hill. who says? she says! so says the soothsayer rapunzel. As Brad the Bard and Ken knew, the can-can can not know how to do it like an apple, like a bridge, like a beast of burden with a heavy load. And so what? The bald bearded bard sings a braided tale of happiness, of woe, of bitter embargoed apples on a barge passing under a bridegroom's bridge by a tepid, vapid moon. His beer is here, and all ale is well, hale, and hearty. This is not my bridge, it is your bridge, your toll bridge, your tool for trolls and travellers. I see you singing, Bradley Bard, I hear you. Your embalmer blames the bridge, his badge is barely adequate for the aqueduct, he ducks his dock responsibilities badly, baldly. Who is the third that walks beside you? How is he known, and how can he see in the dark (if, in fact, he can.) All what? All right, that is okay, he said.";
+
     
-    var getEngine = function(input) {
+    var getEngine = function(input, etype, ngram) {
 
         var opts = {};
 
@@ -39,10 +62,10 @@ var page17 = function() {
         
         opts.inputString = input; 
 
-        opts.model = markovModels.markov;
+        opts.model = etype;
 
         // this is a char-based engine
-        opts.ngramLength = 5;
+        opts.ngramLength = ngram;
 
         var w = new markov(opts);
         
@@ -73,15 +96,18 @@ var page17 = function() {
         
     };
 
-    var input = $('#raw').html();
-    var e = getEngine(input);
-    
-    var words = e.GetWords(1000);
-    var bites = randomChunks(words);    
-    content.html('<p>' + bites.join('</p>\n<p>') + '</p>');
+    var generate = function() {
+        
+        var e = getEngine(input, etype, ngram);
+            
+        var words = e.GetWords(1000);
+        var bites = randomChunks(words);    
+        content.html('<p>' + bites.join('</p>\n<p>') + '</p>');
+
+    }();
     
 
-    $(document).bind('keydown', 'space', keyed );
+    $(document).bind('keydown', 'ctrl+r', generate );
 
     $('#infobox').fadeOut(5000);
 

@@ -49,6 +49,7 @@ body, html, form {
     padding: 20px;
     background: white;
     text-align: center;
+    color: black;
 }
 
 /* this can scroll off the bottom in small displays.... */

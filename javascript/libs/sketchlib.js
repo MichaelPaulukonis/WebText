@@ -38,9 +38,10 @@ var SketchLib = function() {
     };
 
     var _opts = {};
-    
+
+    // return null, so callers can sustitue a default if undefined
     var getOption = function(key) {
-        return _opts[key] || '';
+        return _opts[key] || null;
     };
 
     var initOptions = function() {
