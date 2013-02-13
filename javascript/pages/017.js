@@ -30,6 +30,8 @@ var page17 = function() {
 
         var opts = {};
 
+        // TODO: this should be part of the library
+        // EXCEPT.... it's not a static object, so it's not availbe yet.....
         var markovModels = { markov: "markov",
                              cento: "cento",
                              overlap: "1-char overlap"
@@ -72,7 +74,7 @@ var page17 = function() {
     };
 
     var input = $('#raw').html();
-    var e = getEngine(testinput);
+    var e = getEngine(input);
     
     var words = e.GetWords(1000);
     var bites = randomChunks(words);    

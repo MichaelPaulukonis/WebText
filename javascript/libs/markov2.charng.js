@@ -7,7 +7,7 @@
 //                          cento: "cento",
 //                          overlap: "1-char overlap"
 //                        };
-    
+
 //     opts.inputString = "input string";
 
 //     opts.model = markovModels.markov;
@@ -18,70 +18,129 @@
 //     var w = new markov(opts);
 
 //     return w;
-    
+
 // };
 
 var markov = function(opts) {
 
-    var inputString = opts.inputString;
+    var models = { markov: "markov",
+                   cento: "cento",
+                   overlap: "1-char overlap"
+                 };
+    
+    var setModel = function(model) {
+        // TODO: confirm that model is valid
+        opts.model = model;
+    };
+
+    var setNGram = function(n) {
+        opts.ngramLength = parseInt(n, 10);
+    };
+
+    var setGovernor = function(n) {
+        opts.repetitionGovernor = n;
+    };
+    
+    // TODO: should we always read the opts object, or read a local var?!??
+    // specifically - opts.inputString ... hrm.....
+    var inputString = opts.inputString || '';
     var arrayLength = inputString.length;
+    opts.repetitionGovernor = opts.repetitionGovernor || 10;
+
+    var repeatChars = [];
+    var repeatWords = [];
+    
     var outputString = "";
-    var priorSubstring = " ";
+    var _priorSubstring = " ";
     var toAdd = "";
 
     // parameter: n-gram size
-    var ngramLength =  parseInt(opts.ngramLength, 10);
+    var ngramLength =  parseInt(opts.ngramLength, 10) || 5; // default to 5
 
 
+    
+    // TODO: I had some idea of recording the sequnce of random indexes
+    // and allowing them to be "played back"
+    // to test algorithm changes
+    // we could replace getRandomIndex with an iterator over a specified set
+    var getRandomIndex = function() {
+        return Math.floor(Math.random()*arrayLength);
+    };
+    
+
+    // TODO: if the model is CHANGED to markov
+    // does this initialization need to be run?
     // if doing Markov chaining,
     // find the first prior substring (i.e. what you'll use to find the next character)
     // find a random index, then find the next index at which the prior substring(a space) occurs
-    if ( opts.model == "markov" ) {
+    var setPriorSubstring = function() {
+        if ( opts.model == models.markov ) {
 
-        // from this point on, "ngramLength" actually describes the length of the substring
-        ngramLength--;
+            // from this point on, "ngramLength" actually describes the length of the substring
+            ngramLength--;
 
-        var randomIndex = Math.floor(Math.random()*arrayLength);
-        var nextIndex = inputString.indexOf(priorSubstring, randomIndex);
+            var randomIndex = getRandomIndex();
+            var nextIndex = inputString.indexOf(_priorSubstring, randomIndex);
 
-        if ( nextIndex != -1 && nextIndex > ngramLength ) {
-            priorSubstring = inputString.substring(nextIndex-ngramLength+1, nextIndex+1);
+            if ( nextIndex != -1 && nextIndex > ngramLength ) {
+                _priorSubstring = inputString.substring(nextIndex-ngramLength+1, nextIndex+1);
+            }
+
+        }
+    }();
+
+    var getNext = function() {
+
+        var gn = getNextInner();
+        
+        var r = storeRepeat(gn);
+        if (r.length > opts.repetitionGovernor) {
+            // need to redo it
+            // will this EVER take place for non-Markov models?
+            // porbbaly not for non-pervest cento-scenarios
+            // unsure about overlap
+            // in any case, traps should be made for those as well
+            if (opts.model == models.markov) {
+                setPriorSubstring();
+            }
         }
 
-    }
+        return gn;
+
+    };
 
     // retrieve n chars, where n := ngramLength
     // this relies on all variables of parent scope being available internally
-    var getNext = function() {
+    var getNextInner = function() {
 
-        // get a random index
-        var randomIndex = Math.floor(Math.random()*arrayLength);
+            // get a random index
+        var randomIndex = getRandomIndex();
 
-        // starting from random index, look for next instance that has the prior substring
+            // starting from random index, look for next instance that has the prior substring
         // foundAtEnd is used to see if the substring is found
-        var foundAtEnd = inputString.indexOf(priorSubstring, randomIndex);
+        var foundAtEnd = inputString.indexOf(_priorSubstring, randomIndex);
 
         // if you haven't found the substring between the random index
         // and the end of the corpus, then look from beginning
-        // (this will always work, but may get the text segment that priorSubstring was last built on)
+        // (this will always work, but may get the text segment that _priorSubstring was last built on)
         if ( foundAtEnd == -1 ) {
-            foundAtEnd = inputString.indexOf(priorSubstring, 0);
+            foundAtEnd = inputString.indexOf(_priorSubstring, 0);
         }
         var nextIndex;
         // nextIndex is used to identify the string to use
-        if ( opts.model == "markov" ) {
+            if ( opts.model == models.markov ) {
 
-            // TODO: there's a bug here...
-            nextIndex = foundAtEnd + ngramLength;
-            //nextIndex = foundAtEnd + priorSubstring.length;
+                // TODO: there's a bug here...
+                nextIndex = foundAtEnd + ngramLength;
+                //nextIndex = foundAtEnd + _priorSubstring.length;
 
-        } else if ( opts.model == "1-char overlap" ) {
-            nextIndex = foundAtEnd + 1;
-        }
+            } else if ( opts.model == models.overlap ) {
+                nextIndex = foundAtEnd + 1;
+            }
 
         // if you're using "cento" chaining, then just paste the substring after this
         // else do the following
-        if ( opts.model == "cento" ) {
+        if ( opts.model == models.cento ) {
             toAdd = inputString.substring(randomIndex, randomIndex + ngramLength);
         }
 
@@ -90,22 +149,22 @@ var markov = function(opts) {
         // then find the character to add and new prior substring
         if ( foundAtEnd != -1 ) {
 
-            if ( opts.model == "markov" ) {
+            if ( opts.model == models.markov ) {
 
                 // we're going to add the character at the next index
                 toAdd =  inputString.charAt(nextIndex);
 
                 // handle case if the next index is at the beginning of the text (ex: nextIndex is character 2, but ngram length is 4)
                 if ( nextIndex > ngramLength ) {
-                    priorSubstring = inputString.substring(nextIndex - ngramLength + 1, nextIndex + 1);
+                    _priorSubstring = inputString.substring(nextIndex - ngramLength + 1, nextIndex + 1);
                 } else {
-                    priorSubstring = inputString.charAt(nextIndex);
+                    _priorSubstring = inputString.charAt(nextIndex);
                 }
                 
-            } else if ( opts.model == "1-char overlap" ) {
+            } else if ( opts.model == models.overlap ) {
                 toAdd =  inputString.substring(nextIndex, nextIndex + ngramLength);
 
-                priorSubstring = inputString.charAt(nextIndex + ngramLength - 1);
+                _priorSubstring = inputString.charAt(nextIndex + ngramLength - 1);
             }
 
             // this SHOULD never occur.  TO DO: remove?
@@ -113,11 +172,34 @@ var markov = function(opts) {
 
             toAdd =  "";
         }
-
+        
         return toAdd;
 
     };
 
+    // store most recent addition
+    // depending on model, pick the right storage unit
+    // if a new addition, purge the storage
+    var storeRepeat = function(s) {
+
+        var r = [];
+        
+        if (opts.model == models.markov) {
+            r = repeatChars;
+        } else {
+            r = repeatWords;
+        }
+
+        if (r[r.length-1] != s) {
+            r = [];
+        }
+
+        r.push(s);
+
+        return r;
+        
+    };
+    
 
     var getnchars = function(n) {
 
@@ -137,11 +219,11 @@ var markov = function(opts) {
 
         var word = '';
         
-        if (opts.model != 'markov') {
+        if (opts.model != models.markov) {
             word = getNext();
         } else {
             // this is not a good model for non-markov words
-            // if it is returning one char, yeah
+                // if it is returning one char, yeah
             // but it is NOT returning one char at a time
             // so: ugh
             // whitespace can be in the middle of the return value
@@ -162,9 +244,13 @@ var markov = function(opts) {
             var found = false;
             while (!found) {
                 var c = getNext();
-                if ( c == ' ') {
+                // there is a small bug that pops up here sometimes
+                // if ' ' is the first returned characters, then word.length == 0
+                // a space can lead to another space, leading to an infinite loop
+                // we need a repetition governor in here.....
+                if ( c == ' ' & word.length > 0) {
                     found = true;
-                } else {
+                } else if (c!= ' ') {
                     word += c;
                 }
             }
@@ -186,18 +272,24 @@ var markov = function(opts) {
         // and probably way too small
         // quick, non-scientific tests
         // show we're only getting about 75% of the desired result
-        for (var i = 0; i < n; i++) {
 
-            var word = (opts.model == 'markov' ? getNextWord() : getNext() );
-            ws.push(word);
-            
+
+        if (opts.model != models.markov) {
+            var wc = 0;
+            var cw = '';
+            while (wc < 1000) {
+                var word = getNext();
+                cw += word;
+                wc = cw.split(' ').length; // to obtain the count of all spaces. s/b a better method....
+            }
+            ws = cw.split(' ');
+        } else {
+            for (var i = 0; i < n; i++) {
+                var word = getNextWord();
+                ws.push(word);
+            }
         }
 
-        if (opts.model != 'markov') {
-            var s = ws.join('');
-            ws = s.split(' ');
-        }
-        
         return ws;
         
     };
@@ -205,8 +297,9 @@ var markov = function(opts) {
 
     return { GetNchars : getnchars,
              Next      : getNextWord,
-             GetWords  : getWords
-        };
+             GetWords  : getWords,
+             Models    : models
+           };
     
 };
 
@@ -224,7 +317,7 @@ function getCharacterInContext( aString, anIndex ) {
     returnString += "|" + replaceNewlines( aString.charAt(anIndex) ) + "|";
 
     // why 9 ???
-    tempString = aString.substring(anIndex+1, anIndex+9);
+        tempString = aString.substring(anIndex+1, anIndex+9);
     returnString += replaceNewlines(tempString);
     returnString += "\n";
 
