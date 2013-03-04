@@ -23,7 +23,12 @@
       <h1 class='info'>'space' to pause/resume</h1>
     </div>
 
-    <pre id='displaypage'></pre>
+    <!-- contenteditable is FUN - but since the edit is in the PRE tag, and it is over-written with info from the textsoure array...
+         we'd have to push the contents BACK into the array.
+         which I guess we could do....
+         somehow...
+    -->
+    <pre contenteditable='true' id='displaypage'></pre>
 
   </body>
 

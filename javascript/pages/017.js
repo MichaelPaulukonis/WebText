@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     page17();
 
-
 });
 
 // nothing is in #content (by default)
@@ -11,7 +10,7 @@ $(document).ready(function() {
 //   place into #content
 //   maximize size
 var page17 = function() {
-
+    
     var content = $('#content');
     var input;
 
@@ -102,12 +101,14 @@ var page17 = function() {
             
         var words = e.GetWords(1000);
         var bites = randomChunks(words);    
-        content.html('<p>' + bites.join('</p>\n<p>') + '</p>');
+        // content.html('<p>' + bites.join('</p>\n<p>') + '</p>');
+        content.html('<span>' + bites.join('</span>\n<span>') + '</span>');
 
-    }();
-    
+    };
 
-    $(document).bind('keydown', 'ctrl+r', generate );
+    generate();
+
+    $(document).bind('keydown', 'r', generate );
 
     $('#infobox').fadeOut(5000);
 

@@ -1,0 +1,38 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: white;
+    overflow: hidden;
+}
+
+
+#content > h1 {
+    color: #FFFFFF;
+}
+
+
+#infobox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+/* without this, centering fails */
+pre {
+    /* float: left; */
+    /* margin: 20px; */
+    font-size: 36px;
+    width: 375px;
+}
+
+#status {
+    font-size: 12pt;
+    /* display: none; */
+}
