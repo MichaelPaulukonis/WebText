@@ -1,0 +1,49 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+    overflow: hidden;
+}
+
+#content {
+    text-align: justify;
+}
+
+#content > span {
+    color: #000;
+}
+
+#content > span.active {
+    color: #FFF;
+}
+
+
+#infobox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+/* this can scroll off the bottom in small displays.... */
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
+

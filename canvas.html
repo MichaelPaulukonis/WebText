@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="myCanvas"></canvas>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+  var canvas=document.getElementById("myCanvas");
+  var context=canvas.getContext("2d");
+  canvas.width=1000;
+  canvas.height=600
+  context.strokeStyle="black";
+  context.lineWidth=0.3;
+  context.fillStyle="#8ED6FF";
+  context.fillRect(0,0,1000,800);
+  var N=10000;
+for (var i=0;i<N;i++){
+  context.beginPath();
+  context.moveTo(500,300);
+  context.lineTo(500+200*Math.cos(6.28*i/N),300-200*Math.sin(6.28*i/N));
+  context.stroke();
+ }
+
+    });
+</script>
+
+</body>
+</html>

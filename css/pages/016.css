@@ -1,0 +1,60 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: blue;
+    color: yellow;
+    overflow: hidden;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+    text-align: justify;
+    /* http://bancomicsans.com/home.html */
+    font-family:'Comic Sans MS', 'Comic Sans', 'TSCu_Comic', 'Marker Felt';
+    font-size: 200pt;
+    font-weight: 900;
+}
+
+#content > span {
+    color: yellow;
+}
+
+#content > span.active {
+    color: yellow;
+}
+
+#holding {
+    display: none;
+}
+
+
+#infobox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+/* this can scroll off the bottom in small displays.... */
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
+

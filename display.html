@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+    <title>here it is</title>
+
+    <script language="Javascript"><!--
+                                      var tl=new Array(
+
+"           The only thing",
+"left",
+"            are the shoes,",
+"    and the",
+"skeletal",
+"remains decalcified. The only thing left are the",
+"shoes, and only",
+"      their shoes,",
+"       strangely, remain. The",
+"British",
+"luxury",
+"liner Titanic glides through the Southampton, England, harbor",
+"to begin her",
+"            ill-fated",
+"maiden voyage.",
+"",
+"she had advanced safety features such",
+"             as watertight doors,",
+"      she had a powerful wireless telegraph provided",
+"for the currents.",
+"",
+"He'd seen something.",
+"  The sinking",
+"              of Titanic broke",
+" up and",
+"          luxury, fragile",
+"         and opened",
+"         five",
+"           of",
+"     cowardice",
+"   for 14 people.",
+"Public inquiries in",
+"                   Second Class – were",
+"launched only their location, with",
+"over",
+"90%",
+"of their most famous ships in perfect shape. Titanic's",
+"talked to their money",
+"      and tar, each pair",
+"of artefacts have been recovered",
+"",
+"inky black with the wealthiest people."
+
+);
+var speed=60;
+var index=0; text_pos=0;
+var str_length=tl[0].length;
+var contents, row;
+
+function type_text()
+{
+contents='';
+// magic-number := number of rows to display...
+row=Math.max(0,index-30);
+while(row<index)
+contents += tl[row++] + '\r\n';
+
+// TODO: poor reference to the textarea
+var target = document.getElementById('targettext');
+target.value =  contents + tl[index].substring(0,text_pos) + "_";
+//document.forms[0].elements[0].value = contents + tl[index].substring(0,text_pos) + "_";
+
+if(text_pos++==str_length)
+{
+text_pos=0;
+index++;
+if(index!=tl.length)
+{
+str_length=tl[index].length;
+setTimeout("type_text()",1500);
+}
+} else
+setTimeout("type_text()",speed);
+
+}
+//--></script>
+
+    <style type="text/css">
+
+      #bg {
+			position:fixed;
+			top:-50%;
+			left:-50%;
+			width:200%;
+			height:200%;
+      }
+      #bg img {
+			position:absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			margin:auto;
+			min-width:50%;
+			min-height:50%;
+      }
+
+      .page-wrap { position: relative; z-index: 2; width: 400px; margin: 50px; padding: 20px; background: white; -moz-box-shadow: 0 0 20px black;   -webkit-box-shadow: 0 0 20px black; box-shadow: 0 0 20px black; }
+
+
+
+    </style>
+
+
+
+  </head>
+
+  <body onload="type_text()">
+
+    <div class="page-wrap">
+      <p>this is just some text</p>
+      <!-- <textarea id="targettext"  rows="30" cols="60" wrap="soft"></textarea> -->
+    </div>
+
+    <!--	<br />404 Error Page Source Courtesy of:
+        <a href="mailto:olaf@scintilla.utwente.nl">olaf@scintilla.utwente.nl</a>
+
+RULEZ! doesnt it?
+idea, code and some text ripped off without real permission by B , but hey, I give credit
+    -->
+
+
+
+    <!-- At bottom, 'cause it's not really content -->
+    <div id="bg">
+      <img src="./background_images/titanic_clip.gif" alt="" />
+    </div>
+
+
+    </body>
+  </html>

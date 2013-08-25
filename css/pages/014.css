@@ -1,0 +1,33 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+    overflow: hidden;
+}
+
+h2 {
+    color: #FFFFFF;
+}
+
+#content > h1 {
+    color: #FFFFFF;
+    font-size: 256px;
+    line-height: 128px;
+    text-align: center;
+}
+
+
+#infobox {
+    position: fixed;
+    /* non-standard position, so as to not block the single [white] element in sketch 014 */
+    top: 25%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+

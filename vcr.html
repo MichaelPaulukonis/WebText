@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+    <title>fecund ampersand</title>
+
+    <!-- <script type="text/javascript" src="webtext.js"></script> -->
+
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.5.js'></script>
+
+    <!-- source: http://stackoverflow.com/questions/10547797/very-simple-very-smooth-javascript-marquee -->
+    <script type="text/javascript">
+
+      (function($) {
+           $.fn.textWidth = function(){
+                var calc = '<span style="display:none">' + $(this).text() + '</span>';
+                $('body').append(calc);
+                var width = $('body').find('span:last').width();
+                $('body').find('span:last').remove();
+               return width;
+           };
+
+           $.fn.marquee = function(args) {
+               var that = $(this);
+               var textWidth = that.textWidth(),
+                   offset = that.width(),
+                   width = offset,
+                   css = {
+                       'text-indent' : that.css('text-indent'),
+                       'overflow' : that.css('overflow'),
+                       'white-space' : that.css('white-space')
+                   },
+                   marqueeCss = {
+                       'text-indent' : width,
+                       'overflow' : 'hidden',
+                       'white-space' : 'nowrap'
+                   },
+                   args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, args),
+                   i = 0,
+                   stop = textWidth*-1,
+                   dfd = $.Deferred();
+
+               function go() {
+                   if(!that.length) return dfd.reject();
+                   if(width == stop) {
+                       i++;
+                       if(i == args.count) {
+                           that.css(css);
+                           return dfd.resolve();
+                       }
+                       if(args.leftToRight) {
+                           width = textWidth*-1;
+                       } else {
+                           width = offset;
+                       }
+                   }
+                   that.css('text-indent', width + 'px');
+                   if(args.leftToRight) {
+                       width++;
+                   } else {
+                       width--;
+                   }
+                   setTimeout(go, args.speed);
+               };
+               if(args.leftToRight) {
+                   width = textWidth*-1;
+                   width++;
+                   stop = offset;
+               } else {
+                   width--;
+               }
+               that.css(marqueeCss);
+               go();
+               return dfd.promise();
+           };
+       })(jQuery);
+
+
+      $(document).ready(function() {
+
+      var bg = document.getElementById('background');
+      if (bg) {
+        //bg.src = "./background_images/adjust_the_vcr.gif";
+        bg.src = "./background_images/hearts.gif";
+      }
+
+
+      $('#targettext').marquee({speed: 1});;
+
+      //$('h2').marquee({ count: 2 });
+			//$('h3').marquee({ speed: 5 });
+			//$('h4').marquee({ leftToRight: true });
+			//$('h5').marquee({ count: 1, speed: 2 }).done(function() { $('h5').css('color', '#f00'); })
+
+      });
+
+    </script>
+
+    <style type="text/css">
+
+#bg {
+		position:fixed;
+		top:-50%;
+		left:-50%;
+		width:200%;
+		height:200%;
+}
+#bg img {
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		margin:auto;
+		min-width:50%;
+		min-height:50%;
+}
+
+#page-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%px;
+    margin: 50px auto;
+    //padding: 20px;
+   // background: white;
+}
+
+
+#targettext {
+    font-family: Andale Mono, monospace;
+    font-size: 288pt;
+    <!-- min-height: 550px; -->
+    <!-- height: auto !important; -->
+    <!-- height: 550px; -->
+    <!-- word-wrap: break-word; -->
+}
+
+    </style>
+
+    <!--
+        credits:
+        css from http://css-tricks.com/perfect-full-page-background-image/
+        js inspiration from something inspired by the 404 page @ scintilla.utwente.nl
+    -->
+
+  </head>
+
+  <body>
+
+    <div id="page-wrap">
+
+      <h1 id="targettext">instrap</h1>
+
+    </div>
+
+    <!-- At bottom, 'cause it's not really content -->
+    <div id="bg">
+      <img id="background" alt="" />
+    </div>
+
+  </body>
+
+</html>

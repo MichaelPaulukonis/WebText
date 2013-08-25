@@ -1,0 +1,76 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+span, li {
+    background: none repeat scroll 0 0 transparent;
+    /* font-family: "times new roman",serif; */
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 15px;
+    white-space: normal;
+}
+
+.left {
+    text-align: left;
+}
+
+.left > span, .right > span {
+    cursor: pointer;
+}
+
+
+.right {
+    text-align: right;
+}
+
+#leftlist {
+    position: absolute;
+    z-index: 500;
+    float: left;
+}
+
+#rightlist {
+    /* position must be absolute to be up top instead of below leftlist */
+    position: absolute;
+    left: -60px;
+}
+
+#targettext {
+    margin-top: 100px;
+}
+
+#infobox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
