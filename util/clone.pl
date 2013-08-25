@@ -48,10 +48,11 @@ my %targ = (
                    'css' => $rootCss.$target.'.css'
                   );
 
-# print Dumper "target: $target";
-# print Dumper \%source;
-# print Dumper \%targ;
-# print "html is ".$source{'html'};
+print Dumper "target: $target";
+print Dumper \%source;
+print Dumper \%targ;
+print "html is ".$source{'html'};
+
 
 if (files_exist(\%source)) {
   print "source files exist!\n\n";
