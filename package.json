@@ -2,7 +2,7 @@
   "name": "jakefile",
   "description": "build and tools for project",
   "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
-  "dependencies": {
+  "devdependencies": {
     "adm-zip": "0.4.3"
    },
   "engine" : {

@@ -77,16 +77,27 @@ task('zip', [], function() {
 
     var version = getDateFormatted();
 
-    var t = new jake.PackageTask(name, version, function() {
+    var AdmZip = require('adm-zip');
+    var zip = new AdmZip();
 
-        // this.packageFiles.items = getProjectFiles();
-        var files = [ 'd:/temp/WebText/001.html', 'd:/temp/WebText/002.html'];
-        this.packageFiles.items = files;
+    // as it stands, everything is added, hooray!
+    // only in a flat structure, no sub-folders. boo.
+    getProjectFiles().toArray().map(function(file) { zip.addLocalFile(file);});
 
-        console.log(this.packageFiles.items);
+    zip.writeZip(name + '.' + version + '.zip');
 
-        this.needZip = true;
 
-    });
+    // isn't working. not sure what I'm doing wrong
+    // var t = new jake.PackageTask(name, version, function() {
+
+    //     // this.packageFiles.items = getProjectFiles();
+    //     var files = [ 'd:/temp/WebText/001.html', 'd:/temp/WebText/002.html'];
+    //     this.packageFiles.items = files;
+
+    //     console.log(this.packageFiles.items);
+
+    //     this.needZip = true;
+
+    // });
 
 });
