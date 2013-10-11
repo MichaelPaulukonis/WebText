@@ -35,44 +35,15 @@ var page19 = function() {
 
     $('#displayarea').center();
 
-    var l0 = function() {
-
-        spin($(letts[0]), direction.down);
-        setTimeout(l0, 200);
-
+    var spinit = function(target, vector, delay) {
+        spin(target, vector);
+        setTimeout(function() {spinit(target, vector, delay);}, delay);
     };
 
-    l0();
-
-    var l1 = function() {
-        spin($(letts[1]), direction.down);
-        setTimeout(l1, 700);
-    };
-
-
-
-    l0();
-    l1();
-    l2();
-    l3();
-
-    // var l1 = setInterval(function() {
-
-    //     spin($(letts[1]), direction.down);
-
-    // }, 700);
-
-    // var l2 = setInterval(function() {
-
-    //     spin($(letts[2]), direction.up);
-
-    // }, 100);
-
-    // var l32 = setInterval(function() {
-
-    //     spin($(letts[3]), direction.up);
-
-    // }, 2000);
+    spinit($(letts[0]), direction.down, 200);
+    spinit($(letts[1]), direction.down, 700);
+    spinit($(letts[2]), direction.down, 1400);
+    spinit($(letts[3]), direction.down, 5000);
 
 
 };
