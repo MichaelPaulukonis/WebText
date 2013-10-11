@@ -39,11 +39,10 @@ var page19 = function() {
         spin(target, vector);
         setTimeout(function() {spinit(target, vector, delay);}, delay);
     };
-
+    
     spinit($(letts[0]), direction.down, 200);
     spinit($(letts[1]), direction.down, 700);
     spinit($(letts[2]), direction.down, 1400);
     spinit($(letts[3]), direction.down, 5000);
-
 
 };
