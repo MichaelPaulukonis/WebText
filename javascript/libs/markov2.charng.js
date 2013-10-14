@@ -223,7 +223,7 @@ var markov = function(opts) {
             word = getNext();
         } else {
             // this is not a good model for non-markov words
-                // if it is returning one char, yeah
+            // if it is returning one char, yeah
             // but it is NOT returning one char at a time
             // so: ugh
             // whitespace can be in the middle of the return value
