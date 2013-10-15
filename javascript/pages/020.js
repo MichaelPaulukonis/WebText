@@ -32,8 +32,15 @@ var page20 = function() {
 
     // The oncreate function is called every time a tile is created.
     var wall = jQuery.infinitedrag("#wall", {}, {
-        width: 193,
-	height: 190,
+        // THESE CANNOT BE POINTS
+        // because the numbers are used for math (position offset)
+        // maybe look @ http://stackoverflow.com/questions/139655/convert-pixels-to-points
+        // on my work machine
+        width: 200,
+	height: 180,
+        // on my personal machine
+        // width: 193,
+        // height: 190,
 	start_col: 0,
 	start_row: 0,
         oncreate: function($element, col, row) { tileFill($element, col, row); }

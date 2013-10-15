@@ -13,54 +13,6 @@ task('default', [], function () {
 });
 
 
-desc('Push the project (no ignore) to the config location passed in..');
-task('push', [], function (location) {
-    console.log(location);
-    if (config.target[location] == undefined) {
-        console.error(location + ' is not a valid location. Try one of the following:');
-        console.log(config.target);
-        return;
-    }
-    // console.log(config.target[location]);
-    push(config.target[location]);
-});
-
-
-
-var push = function(target) {
-    // TODO: this is more complicated
-    // we want to ignore things. or only hit certain things. :::sigh:::
-    jake.mkdirP(target);
-    jake.cpR("./", target);
-};
-
-var getProjectFiles = function() {
-
-    var list = new jake.FileList();
-
-    list.include('*.html');
-    list.include('css/libs/*.css');
-    list.include('css/pages/*.css');
-    list.include('javascript/libs/*.js');
-    list.include('javascript/pages/*.js');
-
-    return list;
-}
-
-
-var getDateFormatted = function() {
-    var d = new Date();
-    var df = d.getFullYear() + '.' + pad((d.getMonth() + 1), 2) + '.' + pad(d.getDate(), 2);
-    return df;
-};
-
-function pad(nbr, width, fill) {
-    fill = fill || '0';
-    nbr = nbr + '';
-    return nbr.length >= width ? n : new Array(width - nbr.length + 1).join(fill) + nbr;
-}
-
-
 desc('List the config elements');
 task('dump', [], function() {
     console.log(config);
@@ -69,7 +21,28 @@ task('dump', [], function() {
 });
 
 
-// does not appear to be working...
+
+
+desc('Push the project (no ignore) to the config location passed in..');
+task('push', [], function (location) {
+    console.log(location);
+    if (config.target[location] == undefined) {
+        console.error(location + ' is not a valid location. Try one of the following:');
+        console.log(config.target);
+        return;
+    }
+    console.log(config.target[location]);
+    push(config.target[location], getProjectFiles());
+});
+
+
+
+// TODO:
+// delete temp if already exists
+// create temp folder
+// copy included files to temp
+// zip temp
+// allow temp folder to remain
 desc('Zip up the project.');
 task('zip', [], function() {
 
@@ -80,9 +53,23 @@ task('zip', [], function() {
     var AdmZip = require('adm-zip');
     var zip = new AdmZip();
 
+
+    var addFile = function(file) {
+
+        var path = file.substring(0, file.lastIndexOf('\\') + 1);
+
+        // console.log('path: ' + path + ' file: ' + file);
+        console.log('addLocalFile(' + file + ', ' + path + ');');
+
+        zip.addLocalFile(file, path);
+
+    };
+
     // as it stands, everything is added, hooray!
     // only in a flat structure, no sub-folders. boo.
-    getProjectFiles().toArray().map(function(file) { zip.addLocalFile(file);});
+    // getProjectFiles().toArray().map(function(file) { zip.addLocalFile(file);});
+
+    getProjectFiles().toArray().map(addFile);
 
     zip.writeZip(name + '.' + version + '.zip');
 
@@ -101,3 +88,55 @@ task('zip', [], function() {
     // });
 
 });
+
+
+// takes a location and a jake FileList object
+var push = function(target, jakefilelist) {
+
+    var moveFile = function(file) {
+        var p = file.substring(0, file.lastIndexOf('\\') + 1);
+        var tp = path.join(target, p);
+        console.log('file: ' + file + ' target: ' + tp);
+        debugger;
+        jake.mkdirP(tp); // any given file can have a new path. so. Inefficient?
+        jake.cpR(file, tp);
+    };
+
+    jakefilelist.toArray().map(moveFile);
+
+};
+
+var getProjectFiles = function() {
+
+    var list = new jake.FileList();
+
+    list.exclude(/.*bak.*/);
+
+    list.include('*.html');
+    list.include('./css/libs/*.css');
+    list.include('./css/pages/*.css');
+    list.include('./javascript/libs/*.js');
+    list.include('./javascript/pages/*.js');
+
+    // console.log(list);
+
+    return list;
+};
+
+
+var getDateFormatted = function() {
+    var d = new Date();
+    var df = d.getFullYear() + '.' + pad((d.getMonth() + 1), 2) + '.' + pad(d.getDate(), 2);
+    return df;
+};
+
+var pad = function(nbr, width, fill) {
+    fill = fill || '0';
+    nbr = nbr + '';
+    return nbr.length >= width ? nbr : new Array(width - nbr.length + 1).join(fill) + nbr;
+};
+
+var tempname = function() {
+    return "build"; // that will do for now....
+};
+
