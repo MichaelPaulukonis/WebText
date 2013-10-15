@@ -20,6 +20,7 @@ var page20 = function() {
     
     var tileFill = function($element, col, row) {
 
+        w.Text = getText();
         var text = w.GetNchars(199); // I think the count is off-by-one!!! aaaargh
         // pad all spaces with dots and break
         var blob = text.replace(/\s/g, '.');
