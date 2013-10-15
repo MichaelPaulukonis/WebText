@@ -44,7 +44,7 @@ var markov = function(opts) {
     // TODO: should we always read the opts object, or read a local var?!??
     // specifically - opts.inputString ... hrm.....
     var inputString = opts.inputString || '';
-    var arrayLength = inputString.length;
+
     opts.repetitionGovernor = opts.repetitionGovernor || 10;
 
     var repeatChars = [];
@@ -64,7 +64,7 @@ var markov = function(opts) {
     // to test algorithm changes
     // we could replace getRandomIndex with an iterator over a specified set
     var getRandomIndex = function() {
-        return Math.floor(Math.random()*arrayLength);
+        return Math.floor(Math.random()*inputString.length);
     };
     
 
@@ -223,7 +223,7 @@ var markov = function(opts) {
             word = getNext();
         } else {
             // this is not a good model for non-markov words
-                // if it is returning one char, yeah
+            // if it is returning one char, yeah
             // but it is NOT returning one char at a time
             // so: ugh
             // whitespace can be in the middle of the return value
@@ -298,7 +298,8 @@ var markov = function(opts) {
     return { GetNchars : getnchars,
              Next      : getNextWord,
              GetWords  : getWords,
-             Models    : models
+             Models    : models,
+             Text      : inputString
            };
     
 };

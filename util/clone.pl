@@ -23,60 +23,72 @@ use Win32::TieRegistry(Delimiter=>"/");
 use Win32::API;
 
 my ($source,$target,$action) = "";
+my $help = 0;
 
-GetOptions ("help|?"            => $action="help",
+GetOptions ("help|?"            => \$help,
             "source:s"          => \$source,
             "target:s"          => \$target
             # "action:s"          => \$action,
             # for now, assume all actions are CLONE
            );
 
+# ugh. This needs to be rewritten. STAT.
+# well, after OTHER "stat" items....
 
-my $rootHtml = 'd:\\Dropbox\\projects\\WebText\\';
-my $rootJs = 'd:\\Dropbox\\projects\\WebText\\javascript\\pages\\';
-my $rootCss = 'd:\\Dropbox\\projects\\WebText\\css\\pages\\';
+if ($help) {
 
-my %source = (
-                   'html' => $rootHtml.$source.'.html',
-                   'javascript' => $rootJs.$source.'.js',
-                   'css' => $rootCss.$source.'.css'
-                  );
+  help();
 
-my %targ = (
-                   'html' => $rootHtml.$target.'.html',
-                   'javascript' => $rootJs.$target.'.js',
-                   'css' => $rootCss.$target.'.css'
-                  );
-
-print Dumper "target: $target";
-print Dumper \%source;
-print Dumper \%targ;
-print "html is ".$source{'html'};
-
-
-if (files_exist(\%source)) {
-  print "source files exist!\n\n";
 } else {
-  die "source files missing.";
+
+
+  my $rootHtml = 'd:\\Dropbox\\projects\\WebText\\';
+  my $rootJs = 'd:\\Dropbox\\projects\\WebText\\javascript\\pages\\';
+  my $rootCss = 'd:\\Dropbox\\projects\\WebText\\css\\pages\\';
+
+  my %source = (
+                'html' => $rootHtml.$source.'.html',
+                'javascript' => $rootJs.$source.'.js',
+                'css' => $rootCss.$source.'.css'
+               );
+
+  my %targ = (
+              'html' => $rootHtml.$target.'.html',
+              'javascript' => $rootJs.$target.'.js',
+              'css' => $rootCss.$target.'.css'
+             );
+
+  print Dumper "target: $target";
+  print Dumper \%source;
+  print Dumper \%targ;
+  print "html is ".$source{'html'};
+
+
+  if (files_exist(\%source)) {
+    print "source files exist!\n\n";
+  } else {
+    die "source files missing.";
+  }
+
+
+  if (files_exist(\%targ)) {
+    die "target files exist. ABORT ABORT!!";
+  } else {
+    print "target files missing (hooray!)\n\n";
+  }
+
+  foreach my $f (keys %source) {
+    copy($source{$f},$targ{$f}) or die "Copy failed: $!";
+  }
+
+  print "\nCLONED!\n";
+
+  # TODO: update inner portions of $targ('html') to ref the correct js and css
+  print "... updating html....\n";
+
+  update_html($rootHtml, $target.'.html', $source, $target);
+
 }
-
-
-if (files_exist(\%targ)) {
-  die "target files exist. ABORT ABORT!!";
-} else {
-  print "target files missing (hooray!)\n\n";
-}
-
-foreach my $f (keys %source) {
-  	copy($source{$f},$targ{$f}) or die "Copy failed: $!";
-}
-
-print "\nCLONED!\n";
-
-# TODO: update inner portions of $targ('html') to ref the correct js and css
-print "... updating html....\n";
-
-update_html($rootHtml, $target.'.html', $source, $target);
 
 1;                              # exit app after parsing options
 
@@ -141,5 +153,11 @@ sub files_exist {
       && (-e $files{'css'});
 
   return $exists;
+
+}
+
+sub help {
+
+  print "provide source and target";
 
 }
