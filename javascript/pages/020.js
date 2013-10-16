@@ -9,7 +9,7 @@ var page20 = function() {
 
     var opts = {};
 
-    opts.model = 'markov'; 
+    opts.model = 'markov';
     opts.ngramlength = 3;
     opts.inputString = getText(); // only ever set ONCE
 
@@ -17,15 +17,15 @@ var page20 = function() {
 
     var w = new markov(opts);
 
-    
+
     var tileFill = function($element, col, row) {
 
         w.Text = getText();
         var text = w.GetNchars(199); // I think the count is off-by-one!!! aaaargh
         // pad all spaces with dots and break
         var blob = text.replace(/\s/g, '.');
-        var lines = blob.match(/.{1,20}/g).join('\n');
-        
+        var lines = blob.match(/.{1,20}/g).join('\r\n');
+
         $element.text(lines);
 
     };
@@ -37,7 +37,7 @@ var page20 = function() {
         // maybe look @ http://stackoverflow.com/questions/139655/convert-pixels-to-points
         // on my work machine
         width: 200,
-	height: 180,
+	height: 210,
         // on my personal machine
         // width: 193,
         // height: 190,
@@ -53,7 +53,7 @@ var page20 = function() {
     $('#viewport').center();
 
 
-    
+
 
 };
 
@@ -2787,7 +2787,7 @@ var lessig = '// Lawrence Lessig - Free Culture - Ch 2: "Mere Copyists' +
 
     var texts = [ badstein, shakespeare, tristantzara, lessig ];
     var t = Math.floor(Math.random() * 4) + 1;
-    
+
     return texts[t];
 
     };
