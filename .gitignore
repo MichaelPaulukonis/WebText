@@ -1,2 +1,13 @@
 config.js
 node_modules
+*.zip
+study/
+print/
+bareskin/
+canvas.html
+00a.html
+demo.html
+display.html
+background_images/
+FullPageBackgroundImage/
+vcr.html

@@ -1,0 +1,69 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+    overflow: hidden;
+}
+
+
+#content > h1 {
+    color: #FFFFFF;
+}
+
+
+#infobox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+/* without this, centering fails */
+pre {
+    /* float: left; */
+    /* margin: 20px; */
+    font-size: 36px;
+    width: 375px;
+}
+
+
+/* Styling for Infinite Drag elements */
+#viewport {
+    overflow:hidden;
+    /* width:100%; */
+    width: 600px;
+    height:600px;
+    color:#fff;
+    border:1px solid #ccc;
+    background-color:#000;
+}
+#wall {
+/* Code sets CSS to:
+ *	position: relative;
+ *	cursor: move;
+ */
+}
+#wall ._tile {
+    /* Code sets CSS to:
+     * position: absolute,
+     * left: x,
+     * top: y,
+     * width: 100,
+     * height: 100,
+     * overflow: hidden
+     */
+    font-size: 16px;
+    font-weight: normal;
+    font-family: 'Droid Sans Mono', sans-serif, monospace;
+}
+
+
+.colrow {
+    width: 161px;
+}
