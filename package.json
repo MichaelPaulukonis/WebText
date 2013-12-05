@@ -3,7 +3,7 @@
   "description": "build and tools for project",
   "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
   "devdependencies": {
-    "adm-zip": "0.4.3"
+    "adm-zip": "0.4.2"
    },
   "engine" : {
     "node" : "0.8.x"

@@ -27,7 +27,7 @@ var markov = function(opts) {
                    cento: "cento",
                    overlap: "1-char overlap"
                  };
-    
+
     var setModel = function(model) {
         // TODO: confirm that model is valid
         opts.model = model;
@@ -40,16 +40,16 @@ var markov = function(opts) {
     var setGovernor = function(n) {
         opts.repetitionGovernor = n;
     };
-    
+
     // TODO: should we always read the opts object, or read a local var?!??
     // specifically - opts.inputString ... hrm.....
-    var inputString = opts.inputString || '';
+    var inputString = opts.inputString || 'NO TEXT PROVIDED'; // default to a text, as we get infinite loops otherwise (TODO: fix that)
 
     opts.repetitionGovernor = opts.repetitionGovernor || 10;
 
     var repeatChars = [];
     var repeatWords = [];
-    
+
     var outputString = "";
     var _priorSubstring = " ";
     var toAdd = "";
@@ -58,7 +58,6 @@ var markov = function(opts) {
     var ngramLength =  parseInt(opts.ngramLength, 10) || 5; // default to 5
 
 
-    
     // TODO: I had some idea of recording the sequnce of random indexes
     // and allowing them to be "played back"
     // to test algorithm changes
@@ -66,7 +65,7 @@ var markov = function(opts) {
     var getRandomIndex = function() {
         return Math.floor(Math.random()*inputString.length);
     };
-    
+
 
     // TODO: if the model is CHANGED to markov
     // does this initialization need to be run?
@@ -92,18 +91,19 @@ var markov = function(opts) {
     var getNext = function() {
 
         var gn = getNextInner();
-        
-        var r = storeRepeat(gn);
-        if (r.length > opts.repetitionGovernor) {
-            // need to redo it
-            // will this EVER take place for non-Markov models?
-            // porbbaly not for non-pervest cento-scenarios
-            // unsure about overlap
-            // in any case, traps should be made for those as well
-            if (opts.model == models.markov) {
-                setPriorSubstring();
-            }
-        }
+
+        // TODO: the repetitionGovernor model gets hung up sometimes. FIX.
+        // var r = storeRepeat(gn);
+        // if (r.length > opts.repetitionGovernor) {
+        //     // need to redo it
+        //     // will this EVER take place for non-Markov models?
+        //     // porbbaly not for non-pervest cento-scenarios
+        //     // unsure about overlap
+        //     // in any case, traps should be made for those as well
+        //     if (opts.model == models.markov) {
+        //         setPriorSubstring();
+        //     }
+        // }
 
         return gn;
 
@@ -160,7 +160,7 @@ var markov = function(opts) {
                 } else {
                     _priorSubstring = inputString.charAt(nextIndex);
                 }
-                
+
             } else if ( opts.model == models.overlap ) {
                 toAdd =  inputString.substring(nextIndex, nextIndex + ngramLength);
 
@@ -172,7 +172,7 @@ var markov = function(opts) {
 
             toAdd =  "";
         }
-        
+
         return toAdd;
 
     };
@@ -183,7 +183,7 @@ var markov = function(opts) {
     var storeRepeat = function(s) {
 
         var r = [];
-        
+
         if (opts.model == models.markov) {
             r = repeatChars;
         } else {
@@ -197,14 +197,14 @@ var markov = function(opts) {
         r.push(s);
 
         return r;
-        
+
     };
-    
+
 
     var getnchars = function(n) {
 
         var output = '';
-        
+
         while ( output.length <= n ) {
             // TODO: 1-char overlap returns more than one char at a time?!??!
             output += getNext();
@@ -218,7 +218,7 @@ var markov = function(opts) {
     var getNextWord = function() {
 
         var word = '';
-        
+
         if (opts.model != models.markov) {
             word = getNext();
         } else {
@@ -257,7 +257,7 @@ var markov = function(opts) {
         }
 
         return word;
-        
+
     };
 
     // if model is NOT markov
@@ -291,7 +291,7 @@ var markov = function(opts) {
         }
 
         return ws;
-        
+
     };
 
 
@@ -301,7 +301,7 @@ var markov = function(opts) {
              Models    : models,
              Text      : inputString
            };
-    
+
 };
 
 

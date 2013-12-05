@@ -5,16 +5,17 @@
 
 var path = require('path');
 var fs = require('fs');
-var config = require('./config');
 
 desc('This is a simple complete-project copy.');
 task('default', [], function () {
+    var config = require('./config');  // local-dev configuration values (not in repo)
     push(config.target[loc1]);
 });
 
 
 desc('List the config elements');
 task('dump', [], function() {
+    var config = require('./config');  // local-dev configuration values (not in repo)
     console.log(config);
     console.log('date: ' + getDateFormatted());
     console.log('included files: \n' + getProjectFiles().toArray().join('\n'));
@@ -25,6 +26,7 @@ task('dump', [], function() {
 
 desc('Push the project (no ignore) to the config location passed in..');
 task('push', [], function (location) {
+    var config = require('./config');  // local-dev configuration values (not in repo)
     console.log(location);
     if (config.target[location] == undefined) {
         console.error(location + ' is not a valid location. Try one of the following:');
@@ -139,4 +141,3 @@ var pad = function(nbr, width, fill) {
 var tempname = function() {
     return "build"; // that will do for now....
 };
-

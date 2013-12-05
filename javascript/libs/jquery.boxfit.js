@@ -63,14 +63,42 @@
                 $(this).css("text-align", "center");
                 inner_span.css("text-align", "center");
             }
-            while ($(this).width() <= original_width && $(this).height() <= original_height) {
-                if (current_step++ > settings.step_limit) {
-                    break;
+            // this is the size loop
+            // delay this, if you want to see it slide....
+            // 'cept... JS doesn't have a delay
+            // ... so....
+            // while ($(this).width() <= original_width && $(this).height() <= original_height) {
+            //     if (current_step++ > settings.step_limit) {
+            //         break;
+            //     }
+            //     inner_span.css("font-size", parseInt(inner_span.css("font-size"), 10) + 1);
+            // }
+            // inner_span.css("font-size", parseInt(inner_span.css("font-size"), 10) - 1);
+            // return this;
+
+            var that = this;
+            
+            var slowdown = function(delay, target, inner_span) {
+
+                var curFontSize = parseInt(inner_span.css("font-size"), 10);
+                
+                if ($(target).width() <= original_width && $(target).height() <= original_height) {
+                    // TODO handle this properly
+                    // if (current_step++ > settings.step_limit) {
+                    //     break;
+                    // }
+                    inner_span.css("font-size", curFontSize + 1);
+                    setTimeout(function() { slowdown(delay, target, inner_span); }, delay); 
+                } else {
+                    inner_span.css("font-size", curFontSize - 1);
+                    return target;
                 }
-                inner_span.css("font-size", parseInt(inner_span.css("font-size"), 10) + 1);
-            }
-            inner_span.css("font-size", parseInt(inner_span.css("font-size"), 10) - 1);
-            return this;
+            };
+
+            slowdown(500, that, inner_span);
+
+            // ..   aaaand then it returns. ugh. not what I want. extenrally we need to be asynchronous, as well ???
+            
         }
     };
 })(jQuery);
