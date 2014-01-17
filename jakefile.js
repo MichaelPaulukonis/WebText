@@ -21,7 +21,26 @@ task('dump', [], function() {
     console.log('included files: \n' + getProjectFiles().toArray().join('\n'));
 });
 
+desc('Clone an existing project');
+task('clone', [], function() {
 
+    // TODO: this should be rewritten in node
+    // for now, it's a wrapper
+
+    var exec = require('child_process').exec,
+        source = arguments[0],
+        target = arguments[1],
+        execstring = 'perl ./util/clone.pl --source=' + source + ' --target=' + target;
+
+    console.log(execstring);
+
+    exec(execstring, function(err, stdout, stderr) {
+        if (err) { console.log(err); }
+        if (stdout) { console.log(stdout); }
+        if (stderr) { console.log(stderr); }
+    });
+
+});
 
 
 desc('Push the project (no ignore) to the config location passed in..');
@@ -58,7 +77,7 @@ task('zip', [], function() {
 
     var addFile = function(file) {
 
-        var path = file.substring(0, file.lastIndexOf('\\') + 1);
+        var path = file.substring(0, file.lastIndexOf('/') + 1);
 
         // console.log('path: ' + path + ' file: ' + file);
         console.log('addLocalFile(' + file + ', ' + path + ');');

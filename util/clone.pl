@@ -158,6 +158,6 @@ sub files_exist {
 
 sub help {
 
-  print "provide source and target";
+  print "useage: 'clone.pls --source=nnn --target=mmm'";
 
 }
