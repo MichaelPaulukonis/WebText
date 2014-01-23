@@ -28,12 +28,23 @@ var searchComplete = function() {
 
     if (imageSearch.results && imageSearch.results.length > 0) {
 
-        var url = (_.sample(imageSearch.results)).url;
+        var samp = (_.sample(imageSearch.results));
+        var url = samp.url;
         var img = $('#soundimage');
         img.attr('src', url);
-        img.attr('title', mart.description);
+        img.attr('title', mart.description + ' - ' + mart.issue + ', ' + mart.date);
+        img.error(function(url) {
+            console.log('error loading: ' + url);
+            launchSearch();
+        });
 
-        img.load(function() {
+        img.on("load", function() {
+            console.log('image loaded');
+            if (img[0].naturalHeight === 0 || img[0].naturalWidth === 0) {
+                console.log('image: ' + img[0].src + ' failed to load.');
+                launchSearch();
+                return;
+            }
             img.css(fullsize); // reset size if previously shrunk by user
             $('#content').fadeIn();
             $('#description')[0].innerHTML = mart.sound;
@@ -48,27 +59,29 @@ var searchComplete = function() {
                 img.css(newsize);
                 e.stopImmediatePropagation();
             });
+
         });
 
     }
 
 };
 
-var onLoad = function() {
+var launchSearch = function() {
 
     $('#content').fadeOut();
     imageSearch = new google.search.ImageSearch();
+    imageSearch.setResultSetSize(10); // defaults to 4 -- let's get some more variation
     imageSearch.setSearchCompleteCallback(this, searchComplete, null);
 
-    // can't execute imageSearch until onLoad has completed.
+    // can't execute imageSearch until launchSearch has completed.
     mart = _.sample(don_martin);
     imageSearch.execute(mart.description);
 };
 
-google.setOnLoadCallback(onLoad);
+google.setOnLoadCallback(launchSearch);
 
 
-$(document).bind('keydown', 'space', onLoad );
+$(document).bind('keydown', 'space', launchSearch );
 
 // $('#infobox').fadeOut(5000);
 
