@@ -41,6 +41,7 @@ var page23 = function() {
         return this;
     };
 
+    // from http://stackoverflow.com/questions/1985260/javascript-array-rotate
     Array.prototype.rotate = (function() {
         // save references to array functions to make lookup faster
         var push = Array.prototype.push,
@@ -79,7 +80,6 @@ var page23 = function() {
     var t = $('#center').text();
 
     var alternator = function() {
-        console.log('alternator');
         lr('left', 1); lr('right', -1);
     };
 
@@ -87,13 +87,21 @@ var page23 = function() {
     // so we can pause? maybe?
     var timer = setInterval(alternator, 100);
 
+
+    var linerot = function() {
+
+        var targtext = $('#center pre').text().split('\n');
+        targtext.rotate(1);
+        targtext = targtext.join('').replace(/\n/g, '').match(/.{1,20}/g).join('\n');
+        $('#center pre').text(targtext);
+
+    };
+
+    $('#targettext').on('click', linerot);
     // TODO: center column down/up line by line (click = reverse?)
     // TODO: change speed of auto-rotators?
     // TODO: change direction of auto-rotators?
     //       mmmmaybe when central text has completely looped around? "easter egg"
-
-    // $('#left').on('click', function() { lr('left', 1); lr('right', -1); });
-
 
     $('#infobox').fadeOut(1000);
 
