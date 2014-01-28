@@ -58,8 +58,7 @@ body, html, form {
 /* based on notes @ http://css-tricks.com/perfect-full-page-background-image/ */
 #soundimage {
 
-    /* display: none; */
-
+    z-index: 900;
     position:absolute;
     top:0;
     left:0;
@@ -75,4 +74,20 @@ body, html, form {
 
 #description {
     max-width: 500px;
+}
+
+
+#info {
+    z-index: 999;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background: white;
+    width: 100%;
+    padding: 20px;
+    opacity: 0.75;
+}
+
+#info > #infocontent {
+    /* margin: 20px; */
 }

@@ -83,6 +83,11 @@ google.setOnLoadCallback(launchSearch);
 
 $(document).bind('keydown', 'space', launchSearch );
 
+// preliminary hide/show code for "new" info-box at bottom of page
+var $info = $('#info');
+$info.hover(  function () {    $(this).fadeTo(1000, 0.75);  },   function () {    $(this).fadeTo("slow", 0.01);  });
+
+$info.fadeTo(10000, 0.01);
 // $('#infobox').fadeOut(5000);
 
 // };
