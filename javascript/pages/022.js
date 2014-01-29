@@ -30,7 +30,8 @@ var searchComplete = function() {
 
         var samp = (_.sample(imageSearch.results));
         var url = samp.url;
-        var img = $('#soundimage');
+        var img = $('#soundimage'),
+            descr = mart.description + ' - ' + mart.issue + ', ' + mart.date;
         img.attr('src', url);
         img.attr('title', mart.description + ' - ' + mart.issue + ', ' + mart.date);
         img.error(function(url) {
@@ -47,7 +48,8 @@ var searchComplete = function() {
             }
             img.css(fullsize); // reset size if previously shrunk by user
             $('#content').fadeIn();
-            $('#description')[0].innerHTML = mart.sound;
+            $('#sound').text(mart.sound);
+            $('.description').text(descr);
             img.click(function(e){
                 var img = $(this),  width = img.css('min-width'), newsize = {};
                 if (width !== '0px') {
@@ -83,11 +85,24 @@ google.setOnLoadCallback(launchSearch);
 
 $(document).bind('keydown', 'space', launchSearch );
 
-// preliminary hide/show code for "new" info-box at bottom of page
-var $info = $('#info');
-$info.hover(  function () {    $(this).fadeTo(1000, 0.75);  },   function () {    $(this).fadeTo("slow", 0.01);  });
 
+// preliminary hide/show code for "new" info-box at bottom of page
+var infoDisappear = function($this) {
+    $this.stop().animate({bottom: infoBottom, opacity: 0.01}, 'slow');
+    console.log('disappeared');
+};
+
+var infoAppear = function($this) {
+    $this.stop().animate({bottom: 0, opacity: 0.75}, 'slow');
+    console.log('appeared');
+};
+
+var $info = $('#info'),
+    infoBottom = $info.css('bottom');
+$info.mouseenter(function() { infoAppear($info); }).mouseleave(function() { infoDisappear($info); });
+
+infoAppear($info);
 $info.fadeTo(10000, 0.01);
-// $('#infobox').fadeOut(5000);
+
 
 // };

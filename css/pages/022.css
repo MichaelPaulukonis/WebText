@@ -81,13 +81,10 @@ body, html, form {
     z-index: 999;
     display: block;
     position: absolute;
-    bottom: 0;
+    bottom: -130px;
     background: white;
     width: 100%;
     padding: 20px;
-    opacity: 0.75;
-}
-
-#info > #infocontent {
-    /* margin: 20px; */
+    opacity: 0;
+    margin-left: -10px; /* that's weird. it's offset by 10px in FF, Chorme, IE. Do I need a css-reset? */
 }
