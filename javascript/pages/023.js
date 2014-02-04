@@ -64,6 +64,10 @@ var page23 = function() {
         $('#debugbox').css('display', 'block');
     };
 
+    // TODO: there's no reason to grab the text each time
+    // grab it once (external to func)
+    // keep it
+    // render it to the page
     var lr = function(sel, rot) {
 
         var targsel = '#' + sel + ' pre';
@@ -75,8 +79,6 @@ var page23 = function() {
 
     };
 
-    $('#targettext').center();
-
     var t = $('#center').text();
 
     var alternator = function() {
@@ -87,23 +89,64 @@ var page23 = function() {
     // so we can pause? maybe?
     var timer = setInterval(alternator, 100);
 
-
+    // TODO: so... what about...
+    // only displaying 20 items in the array....
     var linerot = function() {
 
-        var targtext = $('#center pre').text().split('\n');
-        targtext.rotate(1);
-        targtext = targtext.join('').replace(/\n/g, '').match(/.{1,20}/g).join('\n');
-        $('#center pre').text(targtext);
+        // targtext.rotate(1);
+        var rotregex = new RegExp('.{1,' + centerLimit + '}', 'g'),
+            rottext = '', i;
+
+        for (i = 0; i < centerLimit; i ++) {
+            var index = (i + offset) % targtext.length;
+            rottext += targtext[index];
+        };
+
+        offset = (offset + 1) % targtext.length;
+
+        rottext = rottext.replace(/\n/g, '').match(rotregex).join('\n');
+        $('#center pre').text(rottext);
 
     };
 
-    $('#targettext').on('click', linerot);
+    var centerLimit = 20,
+        offset = 0,
+        targtext = $('#centerblock').text().split('\n');
+    linerot(); // initial population
+
+    var target = $('#targettext');
+    target.on('click', linerot);
+
     // TODO: center column down/up line by line (click = reverse?)
     // TODO: change speed of auto-rotators?
     // TODO: change direction of auto-rotators?
     //       mmmmaybe when central text has completely looped around? "easter egg"
 
-    $('#infobox').fadeOut(1000);
+    target.center();
 
+    var displayinfo = function() {
+
+        // preliminary hide/show code for "new" info-box at bottom of page
+        var infoDisappear = function($this) {
+            $this.stop().animate({bottom: infoBottom, opacity: 0.01}, 'slow');
+            console.log('disappeared');
+        };
+
+        var infoAppear = function($this) {
+            $this.stop().animate({bottom: 0, opacity: 0.75}, 'slow');
+            console.log('appeared');
+        };
+
+        var $info = $('#infobox'),
+            infoBottom = $info.css('bottom');
+        $info.mouseenter(function() { infoAppear($info); }).mouseleave(function() { infoDisappear($info); });
+
+        $('.description').html('&#171; ' + document.title + ' &#187;');
+        infoAppear($info);
+        $info.fadeTo(10000, 0.01);
+
+
+
+    }();
 
 }();
