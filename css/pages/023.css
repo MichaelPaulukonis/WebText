@@ -5,46 +5,38 @@ body, html, form {
     overflow: hidden;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0px;
-}
-
-li {
-    position: absolute;
-    cursor: pointer;
-}
-
 
 #targettext {
-    margin-top: -50px;
+    /* margin-top: -50px; */
     position: absolute;
     width: 550px;
     z-index: 900;
     padding: 20px;
     background: white;
-    /* text-align: center; */
     font-family: Monospace;
+}
+
+#targettext #texts div {
+    float: left;
 }
 
 #left {
-    float: left;
+    margin-left: 40px;
+    /* ugh. I hate hard-coding this sort of thing
+       But I haven't been able to get centering to work...
+   */
 }
 
 #center {
-    float: left;
-    /* width: 170px; */
+
     font-family: Monospace;
     /* the <pre> tags have a 16px top margin, from somewhere.... */
     /* margin-top: 16px; */
+    margin: 0 30px 0 30px;
 }
 
 #right {
-    float: left;
-}
-
-.targs {
-    margin: 0 30px 0 30px !important;
+    /* nothing to see here.... */
 }
 
 
