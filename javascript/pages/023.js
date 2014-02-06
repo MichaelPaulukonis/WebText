@@ -115,10 +115,20 @@ var page23 = function() {
     linerot(); // initial population
 
     var target = $('#targettext');
+
+    var autoRotate = function() {
+
+        linerot();
+        var rotinv = window.setInterval(linerot, 500);
+        target.on('mouseleave', function() { window.clearInterval(rotinv); });
+
+    };
+
+    // rotate on mouseenter AND click; why not both!
+    target.on('mouseenter', autoRotate);
     target.on('click', linerot);
 
-    // TODO: center column down/up line by line (click = reverse?)
-    // TODO: change speed of auto-rotators?
+    //    // TODO: change speed of auto-rotators?
     // TODO: change direction of auto-rotators?
     //       mmmmaybe when central text has completely looped around? "easter egg"
 
@@ -128,7 +138,7 @@ var page23 = function() {
 
         // preliminary hide/show code for "new" info-box at bottom of page
         var infoDisappear = function($this) {
-            $this.stop().animate({bottom: infoBottom, opacity: 0.01}, 'slow');
+            $this.stop().animate({bottom: infoBottom, opacity: 0.001}, 'slow');
             console.log('disappeared');
         };
 
@@ -143,7 +153,7 @@ var page23 = function() {
 
         $('.description').html('&#171; ' + document.title + ' &#187;');
         infoAppear($info);
-        $info.fadeTo(10000, 0.01);
+        $info.fadeTo(10000, 0.001);
 
 
 
