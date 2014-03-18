@@ -342,7 +342,7 @@ void paint4() {
   for (int i = width; i > width/2; i-= 20) {
     if (i < ((width/3) * 2)) curRot = 90;
     drawGrid(i,i);
-  }
+5  }
   curRot = origRot;
 }
 

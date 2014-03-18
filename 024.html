@@ -66,8 +66,14 @@ function getProcessingSketchId () { return 'polychrome'; }
 				</noscript>
 	    	</div>
 			<h1>polychrome text</h1>
-    		<p id="description"></p>
+    		        <p id="description"></p>
+                        <p>
+                          <a id='savebtn' href="#" alt='enable pop-up blocker to open in new tab'>save</a>
+                           -
+                          <a id='focus' href='#' alt='set focus to canvas'>focus on canvas</a>
+                        </p>
 			<p id="sources">Source code: <a href="./javascript/024.pde">polychrome</a> </p>
+                        <p id="moresketches">More <a href="./PrantedMutter/Sketch">Web Sketches</a></p>
 			<p>
 			Built with <a href="http://processing.org" title="Processing">Processing</a>
 			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
@@ -75,11 +81,28 @@ function getProcessingSketchId () { return 'polychrome'; }
 		</div>
                 <script type="text/javascript">
                   // sets focus w/o mouseclick
-                  //document.getElementById("polychrome").focus();
                   var cvs = document.getElementsByTagName('canvas');
                   if (cvs && cvs[0]) {
-                    cvs[0].focus();
+                    cvs = cvs[0];
                   }
+
+                  var setfocus = function() {
+                    cvs.focus();
+                  };
+
+                  var savecanvas = function() {
+                    if (cvs) {
+                      img = cvs.toDataURL('image/jpg');
+                      window.open(img, '_blank');
+                    }
+                  };
+
+                  var sv = document.getElementById('savebtn');
+                  sv.onclick = savecanvas;
+
+                  var fc = document.getElementById('focus');
+                  fc.onclick = setfocus;
+                  setfocus();
                 </script>
 	</body>
 </html>
