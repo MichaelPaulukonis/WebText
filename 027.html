@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta title="Pablo Picasso"/>
+  </head>
+  <body>
+    <div>
+      <img id='pablo' src="./media/picasso.gogs.jpg"></img>
+    </div>
+    <div>
+      <!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video -->
+      <!-- audio source: https://www.youtube.com/watch?v=k43XjuhInkU
+           converted by http://www.youtube-mp3.org/ -->
+      <audio src="./media/pablo.mp3" preload="auto">
+        <p>(Your browser does not support the audio element. :-( )</p>
+      </audio>
+    </div>
+
+    <!--
+        So.... volume can be set via javascript....
+        Mouse Y?
+        And position by MouseX?
+        THAT WOULD BE WEIRD
+    -->
+    <script src='./javascript/libs/jquery-1.8.0.min.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      var audio = $('audio')[0];
+      audio.playbackRate.value = 2;
+      var playing = false;
+      var hoverplay = function() {
+        audio.play();
+      }
+      // audio.playbackRate = [0.5..4] // hunh
+      $('#pablo').mouseenter(hoverplay).mouseleave(function() { audio.pause(); });
+
+    </script>
+  </body>
+</html>
