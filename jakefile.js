@@ -42,7 +42,8 @@ task('clone', [], function() {
 
 });
 
-
+// call via 'jake "push[xradweb]"'
+// with quotes surrounding the task AND param
 desc('Push the project (no ignore) to the config location passed in..');
 task('push', [], function (location) {
     var config = require('./config');  // local-dev configuration values (not in repo)
@@ -115,7 +116,8 @@ task('zip', [], function() {
 var push = function(target, jakefilelist) {
 
     var moveFile = function(file) {
-        var p = file.substring(0, file.lastIndexOf('\\') + 1);
+        var loc = file.lastIndexOf('/');
+        var p = file.substring(0, loc + 1);
         var tp = path.join(target, p);
         console.log('file: ' + file + ' target: ' + tp);
         debugger;
@@ -127,6 +129,8 @@ var push = function(target, jakefilelist) {
 
 };
 
+// if you add a new directory
+// you must add it here
 var getProjectFiles = function() {
 
     var list = new jake.FileList();
@@ -138,6 +142,7 @@ var getProjectFiles = function() {
     list.include('./css/pages/*.css');
     list.include('./javascript/libs/*.js');
     list.include('./javascript/pages/*.js');
+    list.include('./forgreatjuche/*');
 
     // console.log(list);
 
