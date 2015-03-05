@@ -1,0 +1,90 @@
+body, html, form {
+    font-family: "Segoe UI", "Arial";
+    font-size: 12pt;
+    background: black;
+    overflow: hidden;
+}
+
+#content {
+    display: none; /* will fade-in */
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+
+#description {
+    color: #000;
+    text-align: center;
+    z-index: 999;
+}
+
+
+#infobox, #descripbox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -400px;
+    z-index: 999;
+    width: 800px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.8;
+}
+
+#descripbox {
+    top: 75%;
+}
+
+/* this can scroll off the bottom in small displays.... */
+#debugbox {
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    z-index: 999;
+    width: 500px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    opacity: 0.75;
+    display: none; /* off by default, only display if requested */
+}
+
+/* based on notes @ http://css-tricks.com/perfect-full-page-background-image/ */
+#soundimage {
+
+    z-index: 900;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    min-width:50%;
+    min-height:50%;
+    width: auto;
+    height: auto;
+
+}
+
+#description {
+    max-width: 500px;
+}
+
+
+#info {
+    z-index: 999;
+    display: block;
+    position: absolute;
+    bottom: -130px;
+    background: white;
+    width: 100%;
+    padding: 20px;
+    opacity: 0;
+    margin-left: -10px; /* that's weird. it's offset by 10px in FF, Chorme, IE. Do I need a css-reset? */
+}
