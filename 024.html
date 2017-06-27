@@ -41,7 +41,10 @@
 		border-left: 1px solid #444; border-top: 1px solid #444;
 		border-right: 1px solid #333; border-bottom: 1px solid #333;
 		background-color: #3d3d3d;
-	}
+	        }
+                .keys {
+                  font-family: monospace;
+                }
 		</style>
 		<!--[if lt IE 9]>
 			<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
@@ -72,9 +75,20 @@ function getProcessingSketchId () { return 'polychrome'; }
                            -
                           <a id='focus' href='#' alt='set focus to canvas'>focus on canvas</a>
                         </p>
-			<p id="sources">Source code: <a href="./javascript/024.pde">polychrome</a> </p>
-                        <p id="moresketches">More <a href="./PrantedMutter/Sketch">Web Sketches</a></p>
-			<p>
+
+                        <p>
+                          Mouse click and drag to paint (previous paints will fade slightly).<br />
+                          Color and size are based on mouse position.<br />
+                          <span CLASS="keys">SPACE</span> - paint without fading previous actions<br />
+                          <span CLASS="keys">RIGHT/LEFT</span> - increase/decrease rotation of letters<br />
+                          <span class="keys">R</span> - reset rotation to 0<br />
+                          <span CLASS="keys">UP/DOWN</span> - change paint mode<br />
+                          <span class="keys">M</span> - switch between grids and circles<br />
+                          <span class="keys">Delete|Backspace</span> - clear the screen<br />
+                          <span class="keys">S</span> - Save
+                        </p>
+			<p id="sources">Source code: <a href="./javascript/024.pde">polychrome</a> -
+                        More <a href="./PrantedMutter/Sketch">Web Sketches</a> -
 			Built with <a href="http://processing.org" title="Processing">Processing</a>
 			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
 			</p>

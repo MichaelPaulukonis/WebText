@@ -41,7 +41,10 @@
 		border-left: 1px solid #444; border-top: 1px solid #444;
 		border-right: 1px solid #333; border-bottom: 1px solid #333;
 		background-color: #3d3d3d;
-	}
+	        }
+                .keys {
+                  font-family: monospace;
+                }
 		</style>
 		<!--[if lt IE 9]>
 			<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
@@ -71,6 +74,20 @@ function getProcessingSketchId () { return 'ImageTexter'; }
       <a id='savebtn' href="#" alt='enable pop-up blocker to open in new tab'>save</a>
       -
       <a id='focus' href='#' alt='set focus to canvas'>focus on canvas</a>
+    </p>
+    <p>
+      A text-painter, with color coming (primarily) from 4 possible images.<br />
+      Try painting a grid, reducing the size, and painting again!<br />
+      <br />
+      <span class="keys">UP/DOWN</span> - change text size<br />
+      <span class="keys">LEFT/RIGHT</span> - change amount of "jitter" (random offset for painting)<br />
+      <span class="keys">a</span> - toggle AutoPaint (on/off)<br />
+      <span class="keys">1,2,3,4</span> - change color-source image stored as square "001.jpg" etc, in the data folder<br />
+      <span class="keys">g</span> - paint a grid of text covering entire screen<br />
+      <span class="keys">m/M</span> - change paint Mode (the default mode takes color from images)<br />
+      <span class="keys">s</span> - save<br />
+      <span class="keys">x</span> - change black/white mode. mostly applies to alternate paint modes, or clearing screen<br />
+      <span class="keys">DELETE</span> - clear screen; sets to white/black depending upon black/white mode (default: black)
     </p>
     <p>
       <span id="sources">Source code: <a href="./javascript/pages/025.pde">ImageTexter</a></span>
