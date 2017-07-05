@@ -27,7 +27,6 @@ void setup(){
   colorMode(HSB, width, height, 100);
   clearScreen();
   t = new TextManager();
-
 }
 
 
@@ -38,7 +37,6 @@ void draw(){
       && mouseX > 0 && mouseX < width) {
     paint(mouseX, mouseY);
   }
-
 }
 
 void mousePressed() {
@@ -111,7 +109,6 @@ void drawCircle(int xPos, int yPos) {
     popMatrix();
     // Move halfway again
     arclength += w/2;
-
   }
   popMatrix();
 }
@@ -127,7 +124,9 @@ void drawGrid(int xPos, int yPos) {
       setPaintMode(gridX, gridY);
 
       stroke(255);
-      char letter = t.getCharRandom();
+      // char letter = t.getCharRandom(); // this is the original; modified for text-dumping
+      // should be a setting, I guess
+      char letter = t.getChar();
 
       pushMatrix();
 
@@ -145,7 +144,6 @@ void drawGrid(int xPos, int yPos) {
 
     }
   }
-
 }
 
 char getText() {
@@ -173,7 +171,6 @@ void nextDrawMode(int direction) {
 }
 
 int nextPaintMode(int direction) {
-
   currentPaintMode = (currentPaintMode + direction) % paintModes;
   if (currentPaintMode < 0) currentPaintMode = paintModes - 1;
 
@@ -213,7 +210,6 @@ void setPaintMode(int gridX, int gridY) {
   default:
     fill(gridX, height-gridY, 900, 180);
     break;
-
   }
 }
 
@@ -224,9 +220,7 @@ void reset() {
 
 void save() {
   saveFrame("polychrome.text.####.png");
-  // println("saved!");
 }
-
 
 void keyPressed() {
 
@@ -238,7 +232,6 @@ void keyPressed() {
       } else {
         nextPaintMode(-1);
       }
-      // println("currentPaintMode: " + currentPaintMode);
     }
     if (keyCode == LEFT || keyCode == RIGHT) {
       if (keyCode == LEFT) {
@@ -274,7 +267,6 @@ void keyPressed() {
   case 's':
   case 'S':
     save("screenshot####.png");
-    // println("saved");
     break;
 
   case 'x':
@@ -342,7 +334,7 @@ void paint4() {
   for (int i = width; i > width/2; i-= 20) {
     if (i < ((width/3) * 2)) curRot = 90;
     drawGrid(i,i);
-5  }
+  }
   curRot = origRot;
 }
 
@@ -351,14 +343,12 @@ void paint5() {
 }
 
 void paint6() {
-  // println("paint6 start");
   for (int i = 1; i < width; i+=5) {
     drawGrid(i, mouseY);
   }
-  // println("paint6 end");
-
 }
-// shift pixels in image... somehow
+
+// shift pixels in image
 // http://processing.org/reference/PImage_loadPixels_.html
 // http://processing.org/discourse/beta/num_1269545825.html
 void shift(int verticalOffset, int horizontalOffset) {
@@ -368,25 +358,21 @@ void shift(int verticalOffset, int horizontalOffset) {
   loadPixels();
   screen.pixels = pixels;
 
-
   int offset = verticalOffset * width + horizontalOffset;
   int totPixels = width * height;
-  // println("totPixels: " + totPixels + " offset: " + offset);
+
   for (int i = 0; i < totPixels; i++) {
     int orig = (i + offset) % totPixels;
-    if (orig < 0) orig += totPixels; // nope, not quite;
-    //println("index: " + i + " orig: " + orig);
+    if (orig < 0) orig += totPixels; // nope, not quite; (???)
     temp.pixels[i] = screen.pixels[orig];
   }
 
   screen.pixels = temp.pixels;
   screen.updatePixels();
   image(screen, 0, 0);
-
-  // println("updated!");
-
 }
 
+// TODO: would be nice if we could pass in/change the text....
 class TextManager {
 
   String w = "";
@@ -399,7 +385,7 @@ class TextManager {
 
   TextManager() {
     w = defaultText;
-    words = splitTokens(w,SPLIT_TOKENS);
+    words = splitTokens(w, SPLIT_TOKENS);
   }
 
   TextManager(String wInput) {
