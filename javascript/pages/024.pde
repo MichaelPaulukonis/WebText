@@ -62,12 +62,21 @@ void drawCircle(int xPos, int yPos) {
 
   String message = bodycopy;
 
+  // maybe paint-mode would cycle through some of these variants
+  // as well, not just grid-vs-circle?
+  // what ELSE can be done in grids?
+
+  // float r = (width /2 ) - xPos; // almost - but has nothing in the corners
+  // float r = width - xPos;
+  // another alternate version: width-xPos was off, but had VERY LARGE LETTERS
+  // which was quite nice. - can painy on RIGHT-side of image
+
   // The radius of a circle
-  float r = xPos;
+  float r = xPos; // original version
   float circumference = 2 * PI * r;
   int tx = xPos / 2;
   if (tx < 1) tx = 1;
-  // println(tx);
+
   textSize(tx);
 
   pushMatrix();
@@ -248,6 +257,14 @@ void keyPressed() {
 
   switch(key) {
 
+  case 'f':
+    flip(HORIZONTAL);
+    break;
+
+  case 'F':
+    flip(VERTICAL);
+    break;
+
   case ' ':
     paint(mouseX, mouseY);
     break;
@@ -308,7 +325,6 @@ void keyPressed() {
     break;
 
   }
-
 }
 
 void paint1() {
@@ -370,6 +386,24 @@ void shift(int verticalOffset, int horizontalOffset) {
   screen.pixels = temp.pixels;
   screen.updatePixels();
   image(screen, 0, 0);
+}
+
+int HORIZONTAL = 0;
+int VERTICAL = 1;
+void flip(axis) {
+  PImage screen = createImage(width, height, RGB);
+
+  loadPixels();
+  screen.pixels = pixels;
+  pushMatrix();
+  if (axis == HORIZONTAL) {
+    scale(-1, 1);
+    image(screen, -width, 0);
+  } else {
+    scale(1, -1);
+    image(screen, 0, -height);
+  }
+  popMatrix();
 }
 
 // TODO: would be nice if we could pass in/change the text....
