@@ -71,3 +71,23 @@ body, html, form {
     display: none; /* off by default, only display if requested */
 }
 
+#description {
+    color: #000;
+    text-align: center;
+    z-index: 999;
+    max-width: 500px;
+}
+
+
+#info {
+    z-index: 999;
+    display: block;
+    position: absolute;
+    bottom: -130px;
+    background: white;
+    color: black;
+    width: 100%;
+    padding: 20px;
+    opacity: 0;
+    margin-left: -10px; /* that's weird. it's offset by 10px in FF, Chorme, IE. Do I need a css-reset? */
+}

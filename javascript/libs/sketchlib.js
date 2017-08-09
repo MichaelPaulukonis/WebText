@@ -89,3 +89,28 @@ var SketchLib = function() {
            };
 
 }();
+
+// // TODO: make sure this will work with all extant pages using sketchlib....
+// TODO: local pages should be able to override values
+// f'r instance, 017 needs to have an opacity of 0.85 due to colors....
+// $(document).ready(function() {
+
+//   // preliminary hide/show code for "new" info-box at bottom of page
+//   var infoDisappear = function($this) {
+//     $this.stop().animate({bottom: infoBottom, opacity: 0.01}, 'slow');
+//     console.log('disappeared');
+//   };
+
+//   var infoAppear = function($this) {
+//     $this.stop().animate({bottom: 0, opacity: 0.75}, 'slow');
+//     console.log('appeared');
+//   };
+
+//   var $info = $('#info'),
+//       infoBottom = $info.css('bottom');
+//   $info.mouseenter(function() { infoAppear($info); }).mouseleave(function() { infoDisappear($info); });
+
+//   infoAppear($info);
+//   $info.fadeTo(10000, 0.01);
+
+// });
