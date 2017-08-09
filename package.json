@@ -1,10 +1,11 @@
 {
-  "name": "jakefile",
-  "description": "build and tools for project",
+  "name": "webtext",
+  "version": "0.0.1",
+  "description": "build and tools for WebText project",
   "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
   "devdependencies": {
     "adm-zip": "0.4.2"
-   },
+  },
   "engine" : {
     "node" : "0.8.x"
   }
