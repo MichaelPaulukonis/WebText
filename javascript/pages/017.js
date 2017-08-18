@@ -34,7 +34,7 @@ var page17 = function() {
   case 'test':
   case 3:
     input = testinput;
-
+    break;
 
   default:
     input = decodeURI(c);
